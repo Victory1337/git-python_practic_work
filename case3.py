@@ -30,14 +30,14 @@ class NumberGuessingGame:
     def show_instructions(self):
         """Показать инструкцию к игре"""
         print("\n" + "="*50)
-        print("🎯 ИГРА 'УГАДАЙ ЧИСЛО'")
+        print("ИГРА 'УГАДАЙ ЧИСЛО'")
         print("="*50)
         print(f"Я загадал число от {self.min_number} до {self.max_number}")
         print(f"У вас есть {self.max_attempts} попыток, чтобы угадать его!")
         print("\nПосле каждой попытки я подскажу:")
-        print("  🔼 'Слишком маленькое' - если ваше число меньше")
-        print("  🔽 'Слишком большое' - если ваше число больше")
-        print("  🎉 'Поздравляю!' - если вы угадали!")
+        print("  'Слишком маленькое' - если ваше число меньше")
+        print("   'Слишком большое' - если ваше число больше")
+        print("  'Поздравляю!' - если вы угадали!")
         print("\nКоманды:")
         print("  'help' - показать инструкцию")
         print("  'stats' - показать статистику")
@@ -63,22 +63,22 @@ class NumberGuessingGame:
             
             # Проверка диапазона
             if not (self.min_number <= guess <= self.max_number):
-                return 'ERROR', f"❌ Число должно быть от {self.min_number} до {self.max_number}!"
+                return 'ERROR', f" Число должно быть от {self.min_number} до {self.max_number}!"
             
             # Проверка на повторение
             if guess in self.used_numbers:
-                return 'ERROR', "⚠️ Вы уже вводили это число! Попробуйте другое."
+                return 'ERROR', " Вы уже вводили это число! Попробуйте другое."
             
             return 'SUCCESS', guess
             
         except ValueError:
-            return 'ERROR', "❌ Пожалуйста, введите целое число!"
+            return 'ERROR', " Пожалуйста, введите целое число!"
     
     def get_user_guess(self):
         """Получить и проверить ввод пользователя"""
         while True:
             try:
-                user_input = input(f"🎲 Попытка {self.attempts + 1}/{self.max_attempts}. Введите число: ")
+                user_input = input(f" Попытка {self.attempts + 1}/{self.max_attempts}. Введите число: ")
                 
                 result = self.validate_input(user_input)
                 
@@ -110,13 +110,13 @@ class NumberGuessingGame:
     def check_guess(self, guess):
         """Проверить предположение пользователя"""
         if guess == self.target_number:
-            print(f"🎉 Поздравляю! Вы угадали число {self.target_number} за {self.attempts} попыток!")
+            print(f" Поздравляю! Вы угадали число {self.target_number} за {self.attempts} попыток!")
             self.update_statistics(win=True)
             return 'WIN'
         elif guess < self.target_number:
-            print("🔽 Слишком маленькое! Попробуйте число побольше")
+            print(" Слишком маленькое! Попробуйте число побольше")
         else:
-            print("🔼 Слишком большое! Попробуйте число поменьше")
+            print(" Слишком большое! Попробуйте число поменьше")
         
         # Дополнительные подсказки после нескольких попыток
         if self.attempts >= 3:
@@ -130,19 +130,19 @@ class NumberGuessingGame:
         range_size = self.max_number - self.min_number
         
         if difference <= range_size * 0.1:  # В пределах 10% от диапазона
-            print("   💡 Очень близко! Почти угадали!")
+            print("    Очень близко! Почти угадали!")
         elif difference <= range_size * 0.25:  # В пределах 25% от диапазона
-            print("   💡 Достаточно близко! Продолжайте в том же духе!")
+            print("    Достаточно близко! Продолжайте в том же духе!")
         elif self.attempts == self.max_attempts - 1:  # Последняя попытка
             if self.target_number % 2 == 0:
-                print("   💡 Подсказка: число четное!")
+                print("    Подсказка: число четное!")
             else:
-                print("   💡 Подсказка: число нечетное!")
+                print("    Подсказка: число нечетное!")
     
     def show_progress(self):
         """Показать прогресс игры"""
         remaining = self.max_attempts - self.attempts
-        progress_bar = "█" * self.attempts + "░" * remaining
+        progress_bar = "" * self.attempts + "░" * remaining
         print(f"Прогресс: [{progress_bar}] {self.attempts}/{self.max_attempts} попыток")
         print(f"Использованные числа: {sorted(self.used_numbers)}")
     
@@ -164,7 +164,7 @@ class NumberGuessingGame:
                     loaded_stats = json.load(f)
                     self.statistics.update(loaded_stats)
         except Exception as e:
-            print(f"⚠️ Не удалось загрузить статистику: {e}")
+            print(f"Не удалось загрузить статистику: {e}")
     
     def save_statistics(self):
         """Сохранить статистику в файл"""
@@ -172,7 +172,7 @@ class NumberGuessingGame:
             with open(self.stats_file, 'w', encoding='utf-8') as f:
                 json.dump(self.statistics, f, indent=2, ensure_ascii=False)
         except Exception as e:
-            print(f"⚠️ Не удалось сохранить статистику: {e}")
+            print(f" Не удалось сохранить статистику: {e}")
     
     def update_statistics(self, win):
         """Обновить статистику"""
@@ -217,7 +217,7 @@ class NumberGuessingGame:
     def show_statistics(self):
         """Показать статистику"""
         print("\n" + "="*40)
-        print("📊 СТАТИСТИКА ИГРЫ")
+        print(" СТАТИСТИКА ИГРЫ")
         print("="*40)
         
         if self.statistics['games_played'] == 0:
@@ -241,7 +241,7 @@ class NumberGuessingGame:
     def play_round(self):
         """Играть один раунд"""
         self.generate_number()
-        print(f"\n🎯 Новый раунд! Я загадал число от {self.min_number} до {self.max_number}")
+        print(f"\n Новый раунд! Я загадал число от {self.min_number} до {self.max_number}")
         
         while self.game_active and self.attempts < self.max_attempts:
             self.show_progress()
@@ -261,8 +261,8 @@ class NumberGuessingGame:
                 break
             
             if self.attempts >= self.max_attempts:
-                print(f"\n💔 К сожалению, вы исчерпали все попытки!")
-                print(f"💡 Загаданное число было: {self.target_number}")
+                print(f"\n К сожалению, вы исчерпали все попытки!")
+                print(f" Загаданное число было: {self.target_number}")
                 self.update_statistics(win=False)
                 break
         
@@ -288,7 +288,7 @@ class NumberGuessingGame:
     def change_difficulty(self):
         """Изменить уровень сложности"""
         print("\n" + "="*30)
-        print("🎚️ ВЫБОР СЛОЖНОСТИ")
+        print(" ВЫБОР СЛОЖНОСТИ")
         print("="*30)
         print("1. Легкий (1-50, 10 попыток)")
         print("2. Средний (1-100, 7 попыток)")
@@ -338,7 +338,7 @@ class NumberGuessingGame:
     
     def main_menu(self):
         """Главное меню игры"""
-        print("🎮 ДОБРО ПОЖАЛОВАТЬ В ИГРУ 'УГАДАЙ ЧИСЛО'!")
+        print(" ДОБРО ПОЖАЛОВАТЬ В ИГРУ 'УГАДАЙ ЧИСЛО'!")
         
         while True:
             print("\n" + "="*30)
@@ -362,13 +362,13 @@ class NumberGuessingGame:
                 elif choice == '4':
                     self.change_difficulty()
                 elif choice == '5':
-                    print("Спасибо за игру! До свидания! 👋")
+                    print("Спасибо за игру! До свидания! ")
                     break
                 else:
                     print("Пожалуйста, выберите от 1 до 5")
                     
             except KeyboardInterrupt:
-                print("\n\nИгра завершена. До свидания! 👋")
+                print("\n\nИгра завершена. До свидания! ")
                 break
             except Exception as e:
                 print(f"Произошла ошибка: {e}")
@@ -395,7 +395,7 @@ def main():
         game = NumberGuessingGame()
         game.main_menu()
     except KeyboardInterrupt:
-        print("\n\nИгра завершена. До свидания! 👋")
+        print("\n\nИгра завершена. До свидания! ")
     except Exception as e:
         print(f"Произошла критическая ошибка: {e}")
         print("Пожалуйста, перезапустите программу.")
